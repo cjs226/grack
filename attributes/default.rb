@@ -1,0 +1,5 @@
+node.default['grack']['directory'] = '/opt/grack'
+node.default['grack']['grafana']['hostname'] = 'foo.bar'
+node.default['grack']['group'] = 'grack'
+node.default['grack']['temp_dir'] = '/tmp'
+node.default['grack']['username'] = 'grack'

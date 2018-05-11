@@ -1,0 +1,27 @@
+#!/bin/bash
+
+dashboard=$1
+panel_id=$2
+title=$3
+channel=$4
+past_hours=$5
+
+grafana_api_key="<%= @grafana_api_key %>"
+grafana_url="https://<%= @grafana_host_name %>/render/dashboard-solo/db/${dashboard}/?panelId=${panel_id}\&fullscreen\&from=now-${past_hours}h"
+slack_api_token="<%= @slack_api_token %>"
+
+curl \
+  -H "Authorization: Bearer ${grafana_api_key}" \
+  "${grafana_url}" \
+  > /tmp/${title}.png
+
+if [ $? = 0 ]; then
+  cd /tmp
+  curl \
+    -F file=@${title}.png \
+    -F channels=\#${channel} \
+    -F token=${slack_api_token} \
+    https://slack.com/api/files.upload
+else
+  logger -t grack "grack failed to grab panelId $panel_id / $title"
+fi

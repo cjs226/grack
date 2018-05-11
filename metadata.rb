@@ -1,0 +1,6 @@
+name             'grack'
+maintainer       'Clif Smith'
+maintainer_email 'omg@clif.wtf'
+license          'Apache 2.01'
+description      'grack - send Grafana graphs to Slack'
+version          '0.0.1'
