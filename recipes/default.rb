@@ -11,7 +11,6 @@ user node['grack']['username'] do
   system true
 end
 
-# Generate the app configuration
 template "#{node['grack']['directory']}/grack.sh" do
   source 'grack.sh.erb'
   variables(
