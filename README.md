@@ -24,13 +24,13 @@ This cookbook provides resources for configuring and managing cron jobs to send 
   }
   ```
 - Set the following attributes
-- `node['grack']['graphs'][name_of_graph]['dashboard']`: Grafana dashboard name
+- `node['grack']['graphs']['name_of_graph']['dashboard']`: Grafana dashboard name
   - replace `name_of_graph` with the name you want Slack to set as the title of the graph
-- `node['grack']['graphs'][name_of_graph]['hour']`: Hour to send the graph.  Default is 0
-- `node['grack']['graphs'][name_of_graph]['minute']`: Minute to send the graph.  Default is 30
-- `node['grack']['graphs'][name_of_graph]['panel_id']`: Grafana graph panel ID
-- `node['grack']['graphs'][name_of_graph]['past_hours']`: Number of hours, in the past, to graph.  Default is 24
-- `node['grack']['graphs'][name_of_graph]['slack_channel']`: Slack channel to send graph to
+- `node['grack']['graphs']['name_of_graph']['hour']`: Hour to send the graph.  Default is 0
+- `node['grack']['graphs']['name_of_graph']['minute']`: Minute to send the graph.  Default is 30
+- `node['grack']['graphs']['name_of_graph']['panel_id']`: Grafana graph panel ID
+- `node['grack']['graphs']['name_of_graph']['past_hours']`: Number of hours, in the past, to graph.  Default is 24
+- `node['grack']['graphs']['name_of_graph']['slack_channel']`: Slack channel to send graph to
 - `node['grack']['grafana']['host']`: If Grafana is NOT running locally, set to the fqdn of the Grafana server
 - Example:
   ```
@@ -52,10 +52,10 @@ This cookbook provides resources for configuring and managing cron jobs to send 
 ## Setting defaults
 
 You can set _graph_defaults_:
-- `node['grack']['graph_defaults'][name_of_graph]['dashboard']`: 'ireland_production'
-- `node['grack']['graph_defaults'][name_of_graph]['hour']`: 8
-- `node['grack']['graph_defaults'][name_of_graph]['minute']`: 0
-- `node['grack']['graph_defaults'][name_of_graph]['slack_channel']`: 'ireland_status'
+- `node['grack']['graph_defaults']['name_of_graph']['dashboard']`: 'ireland_production'
+- `node['grack']['graph_defaults']['name_of_graph']['hour']`: 8
+- `node['grack']['graph_defaults']['name_of_graph']['minute']`: 0
+- `node['grack']['graph_defaults']['name_of_graph']['slack_channel']`: 'ireland_status'
 - Example:
   ```
     "grack" => {
@@ -86,7 +86,7 @@ You can set _graph_defaults_:
 ## Removing cron jobs
 
 To remove an existing cron job, set the graph's delete key to true:
-- `node['grack']['graphs']['name_of_graph']['delete']`: true
+- `node['grack']['graphs'][''name_of_graph'']['delete']`: true
 - Example:
   ```
       "grack" => {
