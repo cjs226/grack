@@ -1,27 +1,31 @@
 #!/bin/bash
+# This glorified curl wrapper pulls graphs from Grafana and sends 'em to Slack
 
+# Retrieve args passed in
 dashboard=$1
 panel_id=$2
 title=$3
-channel=$4
+slack_channel=$4
 past_hours=$5
 
 grafana_api_key="<%= @grafana_api_key %>"
-grafana_url="https://<%= @grafana_host_name %>/render/dashboard-solo/db/${dashboard}/?panelId=${panel_id}\&fullscreen\&from=now-${past_hours}h"
+grafana_url="https://<%= @grafana_host %>/render/d-solo/000000055/${dashboard}?orgId=1\&panelId=${panel_id}\&fullscreen\&from=now-${past_hours}h"
 slack_api_token="<%= @slack_api_token %>"
 
+# Pull the graph from Grafana
 curl \
   -H "Authorization: Bearer ${grafana_api_key}" \
   "${grafana_url}" \
-  > /tmp/${title}.png
+  > <%= @temp_dir %>/${title}.png
 
+# If that worked, Slack it
 if [ $? = 0 ]; then
-  cd /tmp
+  cd <%= @temp_dir %>
   curl \
     -F file=@${title}.png \
-    -F channels=\#${channel} \
+    -F channels=\#${slack_channel} \
     -F token=${slack_api_token} \
     https://slack.com/api/files.upload
 else
-  logger -t grack "grack failed to grab panelId $panel_id / $title"
+  logger -t grack "grack failed to grab panel_id $panel_id / $title"
 fi

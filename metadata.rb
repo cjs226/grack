@@ -1,6 +1,10 @@
-name             'grack'
-maintainer       'Clif Smith'
-maintainer_email 'omg@clif.wtf'
-license          'Apache 2.01'
-description      'grack - send Grafana graphs to Slack'
-version          '0.0.1'
+name             "grack"
+maintainer       "Clif Smith"
+maintainer_email "yo@clif.wtf"
+license          "Apache 2.0"
+description      "Sends Grafana graphs to Slack"
+version          "0.0.2"
+
+recipe 'grack::cron', 'Manages cron jobs generated from attributes'
+recipe 'grack::script', 'Installs the script'
+
