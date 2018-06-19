@@ -1,6 +1,7 @@
 # grack Cookbook
 
 This cookbook provides resources for configuring and managing cron jobs to send Grafana graphs to Slack.
+![Grack in the wild](./images/grack.png)
 
 ## Steps to get it up and running
 
