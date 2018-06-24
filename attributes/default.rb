@@ -1,6 +1,7 @@
 default['grack']['graph_defaults']['hour'] = 0
 default['grack']['graph_defaults']['minute'] = 30
 default['grack']['graph_defaults']['past_hours'] = 24
+default['grack']['graph_defaults']['sleep_time'] = 0
 
 default['grack']['directory'] = '/opt/grack'
 

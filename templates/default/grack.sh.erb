@@ -2,30 +2,35 @@
 # This glorified curl wrapper pulls graphs from Grafana and sends 'em to Slack
 
 # Retrieve args passed in
-dashboard=$1
-panel_id=$2
-title=$3
-slack_channel=$4
-past_hours=$5
+dashboard_id=$1
+dashboard_name=$2
+org_id=$3
+panel_id=$4
+variables=$5
+graph_name=$6
+slack_channel=$7
+past_hours=$8
 
 grafana_api_key="<%= @grafana_api_key %>"
-grafana_url="https://<%= @grafana_host %>/render/d-solo/000000055/${dashboard}?orgId=1\&panelId=${panel_id}\&fullscreen\&from=now-${past_hours}h"
+grafana_url="https://<%= @grafana_host %>/render/d-solo/${dashboard_id}/${dashboard_name}?panelId=${panel_id}&orgId=${org_id}${variables}&from=now-${past_hours}h"
 slack_api_token="<%= @slack_api_token %>"
+
+echo $grafana_url
 
 # Pull the graph from Grafana
 curl \
   -H "Authorization: Bearer ${grafana_api_key}" \
   "${grafana_url}" \
-  > <%= @temp_dir %>/${title}.png
+  > <%= @temp_dir %>/${graph_name}.png
 
 # If that worked, Slack it
 if [ $? = 0 ]; then
   cd <%= @temp_dir %>
   curl \
-    -F file=@${title}.png \
+    -F file=@${graph_name}.png \
     -F channels=\#${slack_channel} \
     -F token=${slack_api_token} \
     https://slack.com/api/files.upload
 else
-  logger -t grack "grack failed to grab panel_id $panel_id / $title"
+  logger -t grack "grack failed to grab panel_id $panel_id / $graph_name"
 fi
