@@ -4,7 +4,7 @@ maintainer_email "yo@clif.wtf"
 license 'Apache-2.0'
 description "Sends Grafana graphs to Slack"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version "0.0.5"
+version "0.0.6"
 
 recipe 'grack::cron', 'Manages cron jobs generated from attributes'
 recipe 'grack::script', 'Installs the script'
